@@ -75,10 +75,24 @@ func setupRoutes(ctx *svc.ServiceContext) http.Handler {
 
 	// 创建处理器
 	chatHandler := handler.NewChatHandler(ctx)
+	einoHandler := handler.NewEinoHandler(ctx)
 
-	// 注册聊天相关路由
+	// 注册传统聊天相关路由
 	mux.HandleFunc("/api/v1/chat/invoke", chatHandler.ChatInvoke)
 	mux.HandleFunc("/api/v1/chat/stream", chatHandler.ChatStream)
+
+	// 注册Eino框架编排路由
+	// Chain编排
+	mux.HandleFunc("/api/v1/eino/chain/invoke", einoHandler.ChainInvoke)
+	mux.HandleFunc("/api/v1/eino/chain/stream", einoHandler.ChainStream)
+
+	// Graph编排
+	mux.HandleFunc("/api/v1/eino/graph/invoke", einoHandler.GraphInvoke)
+	mux.HandleFunc("/api/v1/eino/graph/stream", einoHandler.GraphStream)
+
+	// Workflow编排
+	mux.HandleFunc("/api/v1/eino/workflow/invoke", einoHandler.WorkflowInvoke)
+	mux.HandleFunc("/api/v1/eino/workflow/stream", einoHandler.WorkflowStream)
 
 	// 注册健康检查路由
 	mux.HandleFunc("/api/v1/health/check", healthCheckHandler)
@@ -119,6 +133,7 @@ func apiDocHandler(w http.ResponseWriter, r *http.Request) {
     
     <h2>API 接口</h2>
     
+    <h3>传统聊天接口</h3>
     <div class="endpoint">
         <div><span class="method">POST</span> <span class="path">/api/v1/chat/invoke</span></div>
         <div class="description">同步聊天接口 - 传统的请求-响应模式</div>
@@ -131,6 +146,48 @@ func apiDocHandler(w http.ResponseWriter, r *http.Request) {
         <p>请求体: {"message": "你好", "model": "glm-4-0520"}</p>
     </div>
     
+    <h3>Eino 框架编排接口</h3>
+    
+    <h4>Chain 编排（简单链式流程）</h4>
+    <div class="endpoint">
+        <div><span class="method">POST</span> <span class="path">/api/v1/eino/chain/invoke</span></div>
+        <div class="description">Chain同步聊天 - 线性流程编排</div>
+        <p>请求体: {"message": "你好，请介绍一下自己"}</p>
+    </div>
+    
+    <div class="endpoint">
+        <div><span class="method">POST</span> <span class="path">/api/v1/eino/chain/stream</span></div>
+        <div class="description">Chain流式聊天 - 线性流程流式响应</div>
+        <p>请求体: {"message": "请写一首关于春天的诗"}</p>
+    </div>
+    
+    <h4>Graph 编排（复杂有向图流程）</h4>
+    <div class="endpoint">
+        <div><span class="method">POST</span> <span class="path">/api/v1/eino/graph/invoke</span></div>
+        <div class="description">Graph同步聊天 - 支持分支、循环和条件判断</div>
+        <p>请求体: {"message": "你好，请介绍一下自己"}</p>
+    </div>
+    
+    <div class="endpoint">
+        <div><span class="method">POST</span> <span class="path">/api/v1/eino/graph/stream</span></div>
+        <div class="description">Graph流式聊天 - 复杂流程流式响应</div>
+        <p>请求体: {"message": "请写一首关于春天的诗"}</p>
+    </div>
+    
+    <h4>Workflow 编排（高级编排流程）</h4>
+    <div class="endpoint">
+        <div><span class="method">POST</span> <span class="path">/api/v1/eino/workflow/invoke</span></div>
+        <div class="description">Workflow同步聊天 - 支持复杂数据流转和字段级映射</div>
+        <p>请求体: {"message": "你好，请介绍一下自己"}</p>
+    </div>
+    
+    <div class="endpoint">
+        <div><span class="method">POST</span> <span class="path">/api/v1/eino/workflow/stream</span></div>
+        <div class="description">Workflow流式聊天 - 高级编排流式响应</div>
+        <p>请求体: {"message": "请写一首关于春天的诗"}</p>
+    </div>
+    
+    <h3>系统接口</h3>
     <div class="endpoint">
         <div><span class="method">GET</span> <span class="path">/api/v1/health/check</span></div>
         <div class="description">健康检查接口</div>

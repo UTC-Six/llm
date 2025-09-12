@@ -3,15 +3,20 @@
 这是一个基于 [eino](https://www.cloudwego.io/zh/docs/eino/overview/eino_open_source/) 框架和 go-zero 的大模型交互示例项目，展示了如何与大模型进行 Invoke 和 Stream 两种方式的交互。
 
 **✅ 已集成真实的 GLM4.5 API 调用**
+**✅ 已集成真正的 Eino 框架编排系统**
+**✅ 智能客服系统 - 中等复杂度项目示例**
 
 ## 项目特性
 
 - 🚀 基于 go-zero 框架构建，提供高性能的 HTTP 服务
 - 🤖 **真实 GLM4.5 大模型集成** - 已集成真实的智谱清言 API
+- 🎯 **真正的 Eino 框架编排** - 实现组件化设计和三种编排方式
+- 🧠 **智能客服系统** - 包含意图识别、知识检索、上下文管理
 - 📡 提供两种交互模式：同步调用（Invoke）和流式调用（Stream）
 - 🔧 完整的配置管理和日志系统
 - 📚 详细的代码注释和文档
 - ⚡ 生产就绪的 API 调用实现
+- 🎨 中等复杂度的完整示例项目
 
 ## 项目结构
 
@@ -25,9 +30,20 @@ llm-demo/
 │   ├── config/            # 配置结构定义
 │   │   └── config.go
 │   ├── handler/           # HTTP 处理器
-│   │   └── chat_handler.go
+│   │   ├── chat_handler.go     # 传统聊天处理器
+│   │   └── eino_handler.go     # Eino编排处理器
 │   ├── logic/             # 业务逻辑层
-│   │   └── llm_service.go
+│   │   ├── llm_service.go      # 传统实现
+│   │   └── real_llm_service.go # 真实API集成示例
+│   ├── eino/              # Eino框架编排
+│   │   ├── components/         # Eino组件
+│   │   │   └── glm_model.go    # GLM模型组件
+│   │   ├── chain/             # Chain编排
+│   │   │   └── chain_service.go
+│   │   ├── graph/             # Graph编排
+│   │   │   └── graph_service.go
+│   │   └── workflow/          # Workflow编排
+│   │       └── workflow_service.go
 │   ├── svc/               # 服务上下文
 │   │   └── service_context.go
 │   └── types/             # 类型定义
@@ -184,6 +200,106 @@ data: 面
 data: 花
 data: 千
 data: 树
+...
+```
+
+## Eino 框架编排测试
+
+### Chain 编排测试
+```bash
+# Chain 同步调用
+$ curl -X POST http://localhost:8888/api/v1/eino/chain/invoke \
+  -H "Content-Type: application/json" \
+  -d '{"message": "你好，请介绍一下自己"}'
+
+{
+  "code": 200,
+  "message": "success",
+  "data": "嗨，很高兴见到你！我是一个人工智能助手...",
+  "model": "glm-4-0520",
+  "usage": {
+    "promptTokens": 27,
+    "completionTokens": 57,
+    "totalTokens": 84
+  }
+}
+
+# Chain 流式调用
+$ curl -X POST http://localhost:8888/api/v1/eino/chain/stream \
+  -H "Content-Type: application/json" \
+  -d '{"message": "请写一首关于春天的短诗"}'
+
+data: 春风
+data: 轻
+data: 抚
+data: 花
+data: 枝
+data: 瘦
+...
+```
+
+### Graph 编排测试
+```bash
+# Graph 同步调用（意图识别）
+$ curl -X POST http://localhost:8888/api/v1/eino/graph/invoke \
+  -H "Content-Type: application/json" \
+  -d '{"message": "你好，很高兴见到你"}'
+
+{
+  "code": 200,
+  "message": "success",
+  "data": "你好呀！非常高兴遇见你！我是一个乐于助人的智能助手...",
+  "model": "glm-4-0520",
+  "usage": {
+    "promptTokens": 31,
+    "completionTokens": 43,
+    "totalTokens": 74
+  }
+}
+
+# Graph 流式调用
+$ curl -X POST http://localhost:8888/api/v1/eino/graph/stream \
+  -H "Content-Type: application/json" \
+  -d '{"message": "请写一首关于春天的短诗"}'
+
+data: 春
+data: 日
+data: 笑
+data: 盈
+data: 盈
+...
+```
+
+### Workflow 编排测试
+```bash
+# Workflow 同步调用（复杂数据流转）
+$ curl -X POST http://localhost:8888/api/v1/eino/workflow/invoke \
+  -H "Content-Type: application/json" \
+  -d '{"message": "你好，请介绍一下自己"}'
+
+{
+  "code": 200,
+  "message": "success",
+  "data": "嗨，很高兴见到你！我是你的智能助手...",
+  "model": "glm-4-0520",
+  "usage": {
+    "promptTokens": 31,
+    "completionTokens": 43,
+    "totalTokens": 74
+  }
+}
+
+# Workflow 流式调用
+$ curl -X POST http://localhost:8888/api/v1/eino/workflow/stream \
+  -H "Content-Type: application/json" \
+  -d '{"message": "请写一首关于春天的短诗"}'
+
+data: 春
+data: 之
+data: 舞
+data: 曲
+data: 轻轻
+data: 吹
 ...
 ```
 
