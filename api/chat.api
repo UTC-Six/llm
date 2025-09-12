@@ -1,0 +1,82 @@
+syntax = "v1"
+
+info(
+	title: "LLM Demo API"
+	desc: "大模型交互示例API"
+	author: "llm-demo"
+	email: "demo@example.com"
+	version: "v1.0.0"
+)
+
+// 聊天相关接口
+type (
+	// 同步聊天请求
+	ChatRequest {
+		Message string `json:"message"` // 用户输入的消息
+		Model   string `json:"model,optional"` // 可选指定模型
+	}
+	
+	// 同步聊天响应
+	ChatResponse {
+		Code    int    `json:"code"`    // 响应码
+		Message string `json:"message"` // 响应消息
+		Data    string `json:"data"`    // 大模型返回的内容
+		Model   string `json:"model"`   // 使用的模型名称
+		Usage   Usage  `json:"usage"`   // Token使用情况
+	}
+	
+	// 流式聊天请求
+	StreamChatRequest {
+		Message string `json:"message"` // 用户输入的消息
+		Model   string `json:"model,optional"` // 可选指定模型
+	}
+	
+	// 流式聊天响应
+	StreamChatResponse {
+		Code    int    `json:"code"`    // 响应码
+		Message string `json:"message"` // 响应消息
+		Data    string `json:"data"`    // 流式返回的内容片段
+		Model   string `json:"model"`   // 使用的模型名称
+		Done    bool   `json:"done"`    // 是否完成
+		Usage   Usage  `json:"usage,optional"` // Token使用情况（仅在完成时返回）
+	}
+	
+	// Token使用情况
+	Usage {
+		PromptTokens     int `json:"promptTokens"`     // 输入token数
+		CompletionTokens int `json:"completionTokens"` // 输出token数
+		TotalTokens      int `json:"totalTokens"`      // 总token数
+	}
+	
+	// 错误响应
+	ErrorResponse {
+		Code    int    `json:"code"`
+		Message string `json:"message"`
+	}
+)
+
+// API路由定义
+@server(
+	group: chat
+	prefix: /api/v1/chat
+)
+service llm-demo {
+	@doc "同步聊天接口"
+	@handler chatInvoke
+	post /invoke (ChatRequest) returns (ChatResponse)
+	
+	@doc "流式聊天接口"
+	@handler chatStream
+	post /stream (StreamChatRequest) returns (StreamChatResponse)
+}
+
+// 健康检查接口
+@server(
+	group: health
+	prefix: /api/v1/health
+)
+service llm-demo {
+	@doc "健康检查"
+	@handler healthCheck
+	get /check returns (string)
+}

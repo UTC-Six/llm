@@ -1,0 +1,23 @@
+Name: llm-demo
+Host: 0.0.0.0
+Port: 8888
+Mode: dev
+
+# 大模型配置
+LLM:
+  # GLM4.5 模型配置
+  GLM4:
+    Name: "glm4.5"
+    URL: "https://open.bigmodel.cn/api/paas/v4/"
+    AppKey: "2bfeecd60bf44969acf97f24ce734fa4.ytUPBofnk8rSM3Ag"
+    Model: "glm-4-0520"  # 具体的模型名称
+    MaxTokens: 4096
+    Temperature: 0.7
+    TopP: 0.9
+
+# 日志配置
+Log:
+  ServiceName: llm-demo
+  Mode: console
+  Level: info
+  Encoding: json
