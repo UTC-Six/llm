@@ -2,24 +2,24 @@ package main
 
 import (
 	"context"
+	"os"
 
 	"github.com/cloudwego/eino-ext/components/model/ark"
 	"github.com/cloudwego/eino/components/prompt"
 	"github.com/cloudwego/eino/schema"
+	"github.com/joho/godotenv"
 	"github.com/zeromicro/go-zero/core/logx"
 )
 
-var (
-	BaseURL         = "https://ark.cn-beijing.volces.com/api/v3"
-	ApiKey          = "39916561-ff4e-42c3-adc3-efb164dabe1b"
-	ModelDouBaoSeed = "doubao-seed-1-6-250615"
-)
-
 func main() {
+	err := godotenv.Load(".env")
+	if err != nil {
+		panic(err)
+	}
 	ctx := context.Background()
 	model, err := ark.NewChatModel(ctx, &ark.ChatModelConfig{
-		APIKey: ApiKey,
-		Model:  ModelDouBaoSeed,
+		APIKey: os.Getenv("API_KEY"),
+		Model:  os.Getenv("CHAT_MODEL_NAME"),
 	})
 
 	template := prompt.FromMessages(schema.FString, schema.SystemMessage("你是一个{role}"), &schema.Message{
