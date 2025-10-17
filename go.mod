@@ -10,29 +10,41 @@ require (
 	github.com/cloudwego/eino-ext/components/model/ark v0.1.29
 	github.com/cloudwego/eino-ext/components/model/openai v0.0.0-20250905035413-86dbae6351d5
 	github.com/cloudwego/eino-ext/components/retriever/milvus v0.0.0-20251010132343-63671096c7be
+	github.com/cloudwego/eino-ext/components/tool/browseruse v0.0.0-20251011073417-75b93b87b8a9
 	github.com/joho/godotenv v1.5.1
 	github.com/milvus-io/milvus-sdk-go/v2 v2.4.2
 	github.com/zeromicro/go-zero v1.9.0
 )
 
 require (
+	github.com/PuerkitoBio/goquery v1.10.3 // indirect
+	github.com/andybalholm/cascadia v1.3.3 // indirect
 	github.com/bahlo/generic-list-go v0.2.0 // indirect
 	github.com/buger/jsonparser v1.1.1 // indirect
 	github.com/bytedance/sonic v1.14.0 // indirect
 	github.com/bytedance/sonic/loader v0.3.0 // indirect
+	github.com/chromedp/cdproto v0.0.0-20250319231242-a755498943c8 // indirect
+	github.com/chromedp/chromedp v0.13.3 // indirect
+	github.com/chromedp/sysutil v1.1.0 // indirect
 	github.com/cloudwego/base64x v0.1.5 // indirect
+	github.com/cloudwego/eino-ext/components/tool/duckduckgo/v2 v2.0.0-20250707031732-1bfb5847488c // indirect
 	github.com/cloudwego/eino-ext/libs/acl/openai v0.0.0-20250826113018-8c6f6358d4bb // indirect
 	github.com/cockroachdb/errors v1.9.1 // indirect
 	github.com/cockroachdb/logtags v0.0.0-20211118104740-dabe8e521a4f // indirect
 	github.com/cockroachdb/redact v1.1.3 // indirect
+	github.com/corpix/uarand v0.2.0 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/eino-contrib/jsonschema v1.0.0 // indirect
 	github.com/evanphx/json-patch v0.5.2 // indirect
 	github.com/fatih/color v1.18.0 // indirect
 	github.com/getkin/kin-openapi v0.118.0 // indirect
 	github.com/getsentry/sentry-go v0.12.0 // indirect
-	github.com/go-openapi/jsonpointer v0.19.6 // indirect
-	github.com/go-openapi/swag v0.22.4 // indirect
+	github.com/go-json-experiment/json v0.0.0-20250223041408-d3c622f1b874 // indirect
+	github.com/go-openapi/jsonpointer v0.21.0 // indirect
+	github.com/go-openapi/swag v0.23.0 // indirect
+	github.com/gobwas/httphead v0.1.0 // indirect
+	github.com/gobwas/pool v0.2.1 // indirect
+	github.com/gobwas/ws v1.4.0 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/uuid v1.6.0 // indirect
@@ -43,7 +55,7 @@ require (
 	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
-	github.com/kr/pretty v0.3.0 // indirect
+	github.com/kr/pretty v0.3.1 // indirect
 	github.com/kr/text v0.2.0 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
@@ -56,9 +68,9 @@ require (
 	github.com/nikolalohinski/gonja v1.5.3 // indirect
 	github.com/openai/openai-go v1.10.1 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.2 // indirect
-	github.com/perimeterx/marshmallow v1.1.4 // indirect
+	github.com/perimeterx/marshmallow v1.1.5 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/rogpeppe/go-internal v1.8.1 // indirect
+	github.com/rogpeppe/go-internal v1.14.1 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
 	github.com/slongfield/pyfmt v0.0.0-20220222012616-ea85ff4c361f // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
